@@ -42,6 +42,8 @@ with open('cards.json', 'r', encoding='utf-8') as f:
 
         pack_id += 1
 
+    db.commit()
+
 
 
 
