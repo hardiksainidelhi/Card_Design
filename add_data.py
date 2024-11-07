@@ -6,6 +6,7 @@ db  = sqlite3.connect("cah.db")
 with open('cards.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
     pack_id = 0
+    card_id = 0
     for pack in data:
         # inserting pack in packs table in cards.db
         name = pack.get("name")
@@ -20,20 +21,28 @@ with open('cards.json', 'r', encoding='utf-8') as f:
             text = white_card.get('text')
 
             db.execute('''
-                INSERT INTO "cards" ("content","type","pack_id")
-                VALUES (?,'White',?);''',(text,pack_id))
+                INSERT INTO "cards" ("id","content","type","pack_id")
+                VALUES (?,?,'White',?);''',(card_id,text,pack_id))
+            
+            card_id += 1
+        
         
         black_cards = pack.get("black")
 
-        for black_card in white_cards:
+        
+        for black_card in black_cards:
+
             text = black_card.get('text')
-            
-            db.execute('''
-                INSERT INTO "cards" ("content","type","pack_id")
-                VALUES (?,'Black',?);''',(text,pack_id))
-            
+            pick = black_card.get('pick')
+        
+            db.execute('''INSERT INTO "cards" ("id","content", "type", "pack_id", "pick")
+                        VALUES (?, ?, 'Black', ?, ?);''', (card_id,text, pack_id, pick))
+
+            card_id += 1
 
         pack_id += 1
+
+
 
 
 

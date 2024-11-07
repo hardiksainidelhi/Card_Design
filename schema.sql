@@ -8,7 +8,7 @@ CREATE TABLE "cards" (
     "id" INT ,
     "content" TEXT NOT NULL,
     "type" TEXT  CHECK ("type" IN ('Black','White')) NOT NULL,
-    "pack_id" INT,
+    "pack_id" INT, "pick" CHECK ("pick" >= 0) DEFAULT 0,
     PRIMARY KEY ("id"),
     FOREIGN KEY ("pack_id") REFERENCES "packs"("id")
 );
