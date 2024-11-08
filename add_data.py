@@ -9,7 +9,7 @@ with open('cards.json', 'r', encoding='utf-8') as f:
     card_id = 0
     for pack in data:
         # inserting pack in packs table in cards.db
-        name = pack.get("name")
+        name = pack.get("name").strip()
         db.execute('''
                     INSERT INTO "packs" ("id","name")
                     VALUES (?,?);
@@ -41,8 +41,8 @@ with open('cards.json', 'r', encoding='utf-8') as f:
             card_id += 1
 
         pack_id += 1
-
-    db.commit()
+    db.commit
+    
 
 
 
